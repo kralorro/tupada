@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tupada Offline 1.0 - Game Admin</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="admin-controller.js"></script>
+</head>
+
+<body>
+  <form method="post" ng-app="admin-app" ng-controller="admin-controller" >
+    <div class="container" style="background-color:#f1f1f1">
+      <p>
+        Tupada Offline 1.0 | Game Administration
+      </p>
+      <span ng-model="page_message" class="page_message">{{ page_message }}</span>
+      <span>
+        <a href="">New Game</a> | <a href="">Reports</a> | <a href="">Archive Games</a>
+      </span>
+    </div>
+
+    <div class="container" >
+
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <span class="footer">
+        All Rights Reserved 2022. RBK Technologies &copy;
+      </span>
+    </div>
+  </form>
+</body>
+</html>
