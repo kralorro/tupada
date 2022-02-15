@@ -1,7 +1,7 @@
 var login_app = angular.module("login-app", []);
 login_app.controller("login-controller", function($scope, $http, $interval) {
 
-    var URL = 'http://localhost';
+    var URL = 'http://192.168.68.111';
     var PORT = 5000;
     var API = URL + ':' + PORT;
 
@@ -23,7 +23,7 @@ login_app.controller("login-controller", function($scope, $http, $interval) {
                     if (response.data[2] == 'A'){
                         window.location.replace("/admin.html");
                     }
-                    else{
+                    else if (response.data[2] == 'T'){
                         window.location.replace("/bet.html");
                     }
                 }

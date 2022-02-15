@@ -1,0 +1,56 @@
+/* Bordered form */
+/* set entire body that is webpage */
+body{
+    background: #383a3d;
+    padding-top: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* set form background colour*/
+form{
+    background: #fff;
+}
+/* set padding and size of th form */
+.form-container{
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.page_message{
+    color: red;
+}
+
+
+.meron_entry{
+    text-align: center;
+    background-color: green;
+    color: white;
+    height: 60px;
+}
+
+.wala_entry{
+    text-align: center;
+    background-color: red;
+    color: white;
+    height: 60px;
+}
+
+.game_label{
+    text-align: center;
+    height: 40px;
+}
+
+.total_meron{
+    color: green;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size 20px;
+}
+
+.total_wala{
+    color: red;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size 30px;
+}

@@ -6,7 +6,7 @@
 
   <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="login.css">
+ <link rel="stylesheet" href="bets.css">
 </head>
 
 <body>
@@ -16,28 +16,47 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="login-controller.js"></script>
+<script src="bet-controller.js"></script>
   <!-- Login form creation starts-->
   <section class="container-fluid">
     <!-- row and justify-content-center class is used to place the form in center -->
     <section class="row justify-content-center">
       <section class="col-12 col-sm-6 col-md-4">
-        <form class="form-container" ng-app="login-app" ng-controller="login-controller" >
+        <form class="form-container"  ng-app="bet-app" ng-controller="bet-controller" >
         <div class="form-group">
-          <h4 class="text-center font-weight-bold"> Tupada Offline | Login </h4>
-          <div class="form-footer">
-            <br>
+          <h4 class="text-center font-weight-bold"> Tupada | Betting Page </h4>
+
+          <div class="form-footer text-center">
+            Logged in as {{ username }}
           </div>
-          <!--label for="InputEmail1">User Name</label-->
-           <input type="text" class="form-control"  placeholder="Enter Username" ng-model="uname">
         </div>
         <div class="form-group">
-          <!--label for="InputPassword1">Password</label-->
-          <input type="password" class="form-control"  placeholder="Password" ng-model="pword">
+           <table width="100%">
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td width="50%">My Total Bets <h4>{{ teller_running_total_bets |number }} </h4></td>
+              <td width="50%" align="right">My Total Cashout <h4>{{ teller_running_total_withdraw |number }} </h4></td>
+            </tr>
+           </table>
         </div>
-        <button type="button" class="btn btn-primary btn-block" ng-click="do_login()">Submit</button>
-        <div class="form-footer">
-          <!--p> Don't have an account? <a href="#">Sign Up</a></p-->
+        <div class="form-group">
+          <table width="100%">
+            <tr>
+              <td colspan="3" class="game_label">Current Game</td>
+            </tr>
+            <tr>
+              <td width="48%" class="meron_entry">Kim Wong Farm</td>
+              <td width="4%">&nbsp;vs&nbsp;</td>
+              <td width="48%" class="wala_entry">Bungot Farm Dulag</td>
+            </tr>
+            <tr>
+              <td width="48%" class="total_meron"><h4>{{ meron_total_bets | number }} </h4></td>
+              <td width="4%"></td>
+              <td width="48%" class="total_wala"> <h4>{{ wala_total_bets | number }} </h4></td>
+            </tr>
+          </table>
 
         </div>
         <div class="form-footer">
