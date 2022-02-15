@@ -1,3 +1,5 @@
+# All application related constants
+
 USER_DB = "D:\\Tupada Database\\Users.db"
 
 # Login Page
@@ -8,3 +10,5 @@ UNLOCK_USER = "UPDATE users SET login_status = 0 WHERE user_name = '{}'"
 
 # Computation Constants
 PLASADA = .05
+
+
