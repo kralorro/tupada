@@ -35,16 +35,6 @@ login_app.controller("login-controller", function($scope, $http, $interval) {
          });
     };
 
-    $scope.do_logout = function(){
-        var url = API + "/terminate";
-        var data = { user_name:  SessionStorage.getItem("username")};
-        var header = {"Content-Type": "application/json"};
 
-        $http.post(url, data, header).then(function (response) {
-            if (response.data){
-                console.log(response.data)
-            }
-        });
-    };
 
 });

@@ -6,7 +6,7 @@
 
   <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="login.css">
+ <link rel="stylesheet" href="bets.css">
 </head>
 
 <body>
@@ -16,34 +16,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="login-controller.js"></script>
+<script src="qr-controller.js"></script>
   <!-- Login form creation starts-->
   <section class="container-fluid">
     <!-- row and justify-content-center class is used to place the form in center -->
     <section class="row justify-content-center">
       <section class="col-12 col-sm-6 col-md-4">
-        <form class="form-container" ng-app="login-app" ng-controller="login-controller" >
+        <form class="form-container"  ng-app="qr-app" ng-controller="qr-controller" ng-init="generate_qrcode()()">
         <div class="form-group">
-          <h4 class="text-center font-weight-bold"> Tupada | Login </h4>
-          <div class="form-footer">
-            <br>
-          </div>
-          <!--label for="InputEmail1">User Name</label-->
-           <input type="text" class="form-control"  placeholder="Enter Username" ng-model="uname">
-        </div>
-        <div class="form-group">
-          <!--label for="InputPassword1">Password</label-->
-          <input type="password" class="form-control"  placeholder="Password" ng-model="pword">
-        </div>
-        <button type="button" class="btn btn-primary btn-block" ng-click="do_login()">Submit</button>
-        <div class="form-footer">
-          <!--p> Don't have an account? <a href="#">Sign Up</a></p-->
+          <h4 class="text-center font-weight-bold"> Tupada | QR Code </h4>
 
+          <div class="form-footer text-center entry_label">
+            <a href="" ng-click="close_qrcode()">CLOSE</a>
+          </div>
+        </div>
+
+        <div class="form-group" align="center">
+            <img ng-src="{{qrCode}}"  alt='QR code'>
         </div>
         <div class="form-footer">
           <span ng-model="page_message" class="page_message">{{ page_message }}</span>
         </div>
-          <br>
         <div class="form-footer" align="center">
           <span class="footer_text">BEA-KILO-ROMEO TECHNOLOGIES. ALL RIGHTS RESERVER&trade; 2022</span>
         </div>

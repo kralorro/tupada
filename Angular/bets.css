@@ -19,6 +19,14 @@ form{
     color: red;
 }
 
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  font-weight: bold;
+  text-decoration: none;
+}
 
 .meron_entry{
     text-align: center;
@@ -34,17 +42,14 @@ form{
     height: 60px;
 }
 
-.game_label{
-    text-align: center;
-    height: 40px;
-}
+
 
 .total_meron{
     color: green;
     height: 50px;
     text-align: center;
     font-weight: bold;
-    font-size 20px;
+    font-size: 20px;
 }
 
 .total_wala{
@@ -52,5 +57,31 @@ form{
     height: 50px;
     text-align: center;
     font-weight: bold;
-    font-size 30px;
+    font-size: 30px;
+}
+
+
+.cashout_label{
+    font-size: 13px;
+    text-align: right;
+}
+
+.game_label{
+    text-align: center;
+    height: 40px;
+    font-size: 13px;
+}
+
+
+.wager_button{
+    height: 60px;
+    font-size: 13px;
+}
+
+.entry_label{
+    font-size: 12px;
+}
+
+.footer_text{
+    font-size: 8px;
 }

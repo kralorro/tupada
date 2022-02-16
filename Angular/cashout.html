@@ -16,57 +16,68 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="bet-controller.js"></script>
+<script src="cashout-controller.js"></script>
   <!-- Login form creation starts-->
   <section class="container-fluid">
     <!-- row and justify-content-center class is used to place the form in center -->
     <section class="row justify-content-center">
       <section class="col-12 col-sm-6 col-md-4">
-        <form class="form-container"  ng-app="bet-app" ng-controller="bet-controller" ng-init="get_current_game()">
+        <form class="form-container"  ng-app="cashout-app" ng-controller="cashout-controller" ng-init="get_wager_data()">
         <div class="form-group">
-          <h4 class="text-center font-weight-bold"> Tupada | Betting Page </h4>
+          <h4 class="text-center font-weight-bold"> Tupada | Cashout Page </h4>
 
           <div class="form-footer text-center entry_label">
             YOU ARE LOGGED IN AS <strong>{{ username |uppercase }}</strong> | <a href="" ng-click="do_logout()">LOGOUT</a>
           </div>
         </div>
-        <div class="form-group">
-           <table width="100%">
-            <tr>
-              <td></td>
-            </tr>
-            <tr>
-              <td width="50%" class="entry_label">MY TOTAL BETS <h4>{{ teller_running_total_bets |number }} </h4></td>
-              <td width="50%" align="right" class="entry_label">MY TOTAL CASHOUT<h4>{{ teller_running_total_withdraw |number }} </h4></td>
-            </tr>
-           </table>
-        </div>
+
         <div class="form-group">
           <table width="100%">
             <tr>
-              <td colspan="3" class="game_label">CURRENT GAME</td>
+              <td colspan="3" class="game_label"></td>
             </tr>
             <tr>
-              <td width="48%" class="meron_entry">
-                <button type="button" class="btn btn-success btn-block wager_button" ng-click="do_bet_meron()">
-                  <span class="entry_label">MERON</span><br>{{ meron_entry }}
-                </button>
-              </td>
-              <td width="4%">&nbsp;vs&nbsp;</td>
-              <td width="48%" class="wala_entry">
-                <button type="button" class="btn btn-danger btn-block wager_button" ng-click="do_bet_wala()">
-                  <span class="entry_label">WALA</span><br>{{ wala_entry }}
-                </button>
-              </td>
+              <td class="cashout_label">WAGER CODE</td>
+              <td>&nbsp;</td>
+              <td align="left"> {{ bet_id  }}</td>
             </tr>
             <tr>
-              <td width="48%" class="total_meron"><h4>{{ meron_total_bets | number }} </h4></td>
-              <td width="4%"></td>
-              <td width="48%" class="total_wala"> <h4>{{ wala_total_bets | number }} </h4></td>
+              <td class="cashout_label">GAME ID</td>
+              <td>&nbsp;</td>
+              <td align="left"> {{ game_code }}</td>
+            </tr>
+            <tr>
+              <td class="cashout_label">WAGER</td>
+              <td>&nbsp;</td>
+              <td align="left">{{ wager_on }}</td>
+            </tr>
+            <tr>
+              <td class="cashout_label">AMOUNT</td>
+              <td>&nbsp;</td>
+              <td align="left">PHP {{ bet_amount |number }}</td>
+            </tr>
+             <tr>
+              <td class="cashout_label">STATUS</td>
+              <td>&nbsp;</td>
+              <td align="left">{{ status }}</td>
+            </tr>
+             <tr>
+              <td class="cashout_label">PAYOUT</td>
+              <td>&nbsp;</td>
+              <td align="left">PHP {{ payout_amount |number }}</td>
+            </tr>
+            </tr>
+             <tr>
+              <td class="cashout_label">CASHOUT STATUS</td>
+              <td>&nbsp;</td>
+              <td align="left">{{ pay_status }}</td>
+            </tr>
+            <tr>
+              <td lign="right" colspan="3"><br></td>
             </tr>
             <tr>
               <td colspan="3">
-                <input type="number" placeholder="Enter Bet Amount" class="form-control" pattern="[0-9]*">
+                <button type="button" class="btn btn-primary btn-block" ng-click="do_cashout()">Cashout</button>
               </td>
             </tr>
           </table>
