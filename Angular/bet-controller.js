@@ -10,15 +10,15 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
         }
 
         $scope.username = sessionStorage.getItem("username");
-
+        /*
         $scope.meron_total_bets = 423100;
         $scope.wala_total_bets = 510900;
-
+        */
         $scope.game_id = 1001;
-
+        /*
         $scope.teller_running_total_bets = 55120;
         $scope.teller_running_total_withdraw = 25000
-
+        */
         var meron = "Kim Wong/Dagul XXL 100 Super Stag";
         var wala  = "Bam Serrano Palo-Alto Stag Farm";
 
@@ -36,6 +36,7 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
             $scope.wala_entry = wala;
         }
     }
+    $scope.get_current_game()
 
 
     $scope.do_bet_meron = function(){
@@ -95,6 +96,31 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
         }
 
     }
+
+
+    $scope.get_aggregates = function(){
+        var url = API_URL + "/getaggregates";
+
+        var data = { username: $scope.username, game_id: $scope.game_id };
+        var header = {"Content-Type": "application/json"};
+
+        console.log(data)
+        $http.post(url, data, header).then(function (response) {
+            console.log(response.data)
+            if (response.data == "Error"){
+                $scope.page_message = "error encountered. contact application administrator.";
+            }
+            else{
+                console.log(response.data);
+                $scope.teller_running_total_bets = response.data[0][0];
+                $scope.teller_running_total_withdraw = response.data[1][0];
+                console.log(response.data[2][0][1])
+                $scope.meron_total_bets = response.data[2][0][1];
+                $scope.wala_total_bets = response.data[2][1][1];
+            }
+        });
+    }
+    $scope.get_aggregates();
 
 
     $scope.do_logout = function(){
