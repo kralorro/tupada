@@ -1,9 +1,5 @@
-var bet_app = angular.module("bet-app", []);
-bet_app.controller("bet-controller", function($scope, $http, $interval) {
-
-    var URL = 'http://192.168.68.111';
-    var PORT = 5000;
-    var API = URL + ':' + PORT;
+var bet_app = angular.module("bet-app", ["myapp.config"]);
+bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
 
     $scope.username = sessionStorage.getItem("username");
 
@@ -43,7 +39,7 @@ bet_app.controller("bet-controller", function($scope, $http, $interval) {
 
 
     $scope.do_logout = function(){
-        var url = API + "/terminate";
+        var url = API_URL + "/terminate";
         var data = { user_name:  sessionStorage.getItem("username")};
         var header = {"Content-Type": "application/json"};
 
@@ -61,4 +57,4 @@ bet_app.controller("bet-controller", function($scope, $http, $interval) {
 
 
 
-});
+}]);

@@ -1,9 +1,5 @@
-var cashout_app = angular.module("cashout-app", []);
-cashout_app.controller("cashout-controller", function($scope, $http, $interval) {
-
-    var URL = 'http://192.168.68.111';
-    var PORT = 5000;
-    var API = URL + ':' + PORT;
+var cashout_app = angular.module("cashout-app", ["myapp.config"]);
+cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
 
 
     $scope.get_wager_data = function(){
@@ -26,7 +22,7 @@ cashout_app.controller("cashout-controller", function($scope, $http, $interval) 
     };
 
     $scope.do_logout = function(){
-        var url = API + "/terminate";
+        var url = API_URL + "/terminate";
         var data = { user_name:  sessionStorage.getItem("username")};
         var header = {"Content-Type": "application/json"};
 
@@ -41,4 +37,4 @@ cashout_app.controller("cashout-controller", function($scope, $http, $interval) 
         });*/
     };
 
-});
+}]);

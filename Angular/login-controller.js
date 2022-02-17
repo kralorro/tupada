@@ -1,14 +1,11 @@
-var login_app = angular.module("login-app", []);
-login_app.controller("login-controller", function($scope, $http, $interval) {
-
-    var URL = 'http://192.168.68.111';
-    var PORT = 5000;
-    var API = URL + ':' + PORT;
+var login_app = angular.module("login-app", ["myapp.config"]);
+login_app.controller("login-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
 
     $scope.do_login = function(){
         console.log($scope.uname)
 
-        var url = API + "/authenticate";
+        var url = API_URL + "/authenticate";
+
         var data = { user_name: $scope.uname, password: $scope.pword };
         var header = {"Content-Type": "application/json"};
         $http.post(url, data, header).then(function (response) {
@@ -35,6 +32,4 @@ login_app.controller("login-controller", function($scope, $http, $interval) {
          });
     };
 
-
-
-});
+}]);

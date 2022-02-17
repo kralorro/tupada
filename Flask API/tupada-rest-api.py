@@ -75,4 +75,4 @@ def terminate_login():
 
 
 if __name__ == '__main__':
-	app.run(host="192.168.68.111")
+	app.run(host="0.0.0.0")
