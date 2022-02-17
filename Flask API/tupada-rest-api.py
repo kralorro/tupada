@@ -55,7 +55,7 @@ def insert_bet(game_id, player_code, wager_amount, teller_wager):
 
 	except Exception as e:
 		logger(str(e))
-		return -1
+		return "Error"
 
 
 
@@ -87,6 +87,34 @@ def place_bet():
 
 
 
+# web service to get aggregated data
+@app.route('/getaggregates', methods=['POST'])
+def get_aggregates():
+	#try:
+		try:
+
+			# API call using postman
+			username = request.form['username']
+			game_id = request.form['game_id']
+
+		except:
+			# API call via Angular
+			username = request.json['username']
+			game_id = request.json['game_id']
+
+		db = SQLite(MAIN_DB)
+		tot_b = db.execute_query(TOT_BETS.format(username), return_one = True)
+		tot_c = db.execute_query(TOT_CASHOUT.format(username), return_one = True)
+
+		tot_games = db.execute_query(GET_GAME_TOTALS.format(game_id))
+
+		return jsonify([tot_b, tot_c, tot_games])
+
+	#except Exception as e:
+	#	return jsonify(str(e))
+
+
+
 # web service for login
 @app.route('/authenticate', methods=['POST'])
 def validate_login():
@@ -111,6 +139,7 @@ def validate_login():
 		return jsonify("Error")
 
 
+
 # web service for logour
 @app.route('/terminate', methods=['POST'])
 def terminate_login():
@@ -132,6 +161,11 @@ def terminate_login():
 		logger (str(e))
 		return 0
 
+
+@app.route('/getgames', methods=['POST'])
+def get_games():
+	db = SQLite(MAIN_DB)
+	return jsonify(db.get_table_data("games"))
 
 
 
