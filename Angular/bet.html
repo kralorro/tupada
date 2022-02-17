@@ -45,7 +45,7 @@
         <div class="form-group">
           <table width="100%">
             <tr>
-              <td colspan="3" class="game_label">CURRENT GAME</td>
+              <td colspan="3" class="game_label">CURRENT GAME [{{ game_id }}]</td>
             </tr>
             <tr>
               <td width="48%" class="meron_entry">
@@ -67,14 +67,14 @@
             </tr>
             <tr>
               <td colspan="3">
-                <input type="number" placeholder="Enter Bet Amount" class="form-control" pattern="[0-9]*">
+                <input type="number" placeholder="Enter Bet Amount" class="form-control" pattern="[0-9]*" ng-model="bet_amount">
               </td>
             </tr>
           </table>
 
         </div>
-        <div class="form-footer">
-          <span ng-model="page_message" class="page_message">{{ page_message }}</span>
+        <div class="form-footer" align="center">
+          <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
         </div>
         <div class="form-footer" align="center">
           <span class="footer_text">BEA-KILO-ROMEO TECHNOLOGIES. ALL RIGHTS RESERVER&trade; 2022</span>

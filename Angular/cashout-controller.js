@@ -21,20 +21,11 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
 
     };
 
-    $scope.do_logout = function(){
-        var url = API_URL + "/terminate";
+    $scope.close_cashout = function(){
         var data = { user_name:  sessionStorage.getItem("username")};
         var header = {"Content-Type": "application/json"};
 
-        sessionStorage.removeItem("username")
-        window.location.replace("/index.html");
-
-        /*
-        $http.post(url, data, header).then(function (response) {
-            if (response.data){
-                console.log(response.data)
-            }
-        });*/
+        window.location.replace("/bet.html");
     };
 
 }]);

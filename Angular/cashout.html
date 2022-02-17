@@ -28,7 +28,7 @@
           <h4 class="text-center font-weight-bold"> Tupada | Cashout Page </h4>
 
           <div class="form-footer text-center entry_label">
-            YOU ARE LOGGED IN AS <strong>{{ username |uppercase }}</strong> | <a href="" ng-click="do_logout()">LOGOUT</a>
+            <a href="" ng-click="close_cashout()">CLOSE</a>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
             <tr>
               <td class="cashout_label">WAGER CODE</td>
               <td>&nbsp;</td>
-              <td align="left"> {{ bet_id  }}</td>
+              <td align="left" class="code_label"> {{ bet_id  }}</td>
             </tr>
             <tr>
               <td class="cashout_label">GAME ID</td>
