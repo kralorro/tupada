@@ -37,34 +37,57 @@
               <td></td>
             </tr>
             <tr>
-              <td width="50%" class="entry_label">MY TOTAL BETS <h4>{{ teller_running_total_bets |number }} </h4></td>
-              <td width="50%" align="right" class="entry_label">MY TOTAL CASHOUT<h4>{{ teller_running_total_withdraw |number }} </h4></td>
+              <td width="50%" class="entry_label">MY TOTAL BETS <h5>{{ teller_running_total_bets |number:2 }} </h5></td>
+              <td width="50%" align="right" class="entry_label">MY TOTAL CASHOUT<h5>{{ teller_running_total_withdraw |number:2 }} </h5></td>
             </tr>
            </table>
         </div>
         <div class="form-group">
-          <table width="100%">
+          <table width="100%" border="0">
             <tr>
               <input type="hidden" ng-model="cur_game_id" value="{{ game_id }}">
               <td colspan="3" class="game_label">CURRENT GAME [{{ game_id }}]</td>
             </tr>
-            <tr>
-              <td width="48%" class="meron_entry">
+            <tr ng-show="has_active == true;">
+              <td width="48%" class="">
                 <button type="button" class="btn btn-success btn-block wager_button" ng-click="do_bet_meron()">
                   <span class="entry_label">MERON</span><br>{{ meron_entry }}
                 </button>
               </td>
               <td width="4%">&nbsp;vs&nbsp;</td>
-              <td width="48%" class="wala_entry">
+              <td width="48%" class="">
                 <button type="button" class="btn btn-danger btn-block wager_button" ng-click="do_bet_wala()">
                   <span class="entry_label">WALA</span><br>{{ wala_entry }}
                 </button>
               </td>
             </tr>
+            <tr ng-show="has_active == false;">
+              <td width="48%" class="">
+                <button type="button" class="btn btn-success btn-block wager_button" disabled>
+                  <span class="entry_label">NO</span><br>ACTIVE GAME
+                </button>
+              </td>
+              <td width="4%">&nbsp;vs&nbsp;</td>
+              <td width="48%" class="">
+                <button type="button" class="btn btn-danger btn-block wager_button" disabled>
+                  <span class="entry_label">NO</span><br>ACTIVE GAME
+                </button>
+              </td>
+            </tr>
             <tr>
-              <td width="48%" class="total_meron"><h4>{{ meron_total_bets | number }} </h4></td>
+              <td width="48%" class="total_meron"><h5>{{ meron_total_bets | number:2 }} </h5></td>
               <td width="4%"></td>
-              <td width="48%" class="total_wala"> <h4>{{ wala_total_bets | number }} </h4></td>
+              <td width="48%" class="total_wala"> <h5>{{ wala_total_bets | number:2 }} </h5></td>
+            </tr>
+            <tr>
+              <td colspan="3" class="game_label payout">
+                PAYOUT PER HUNDRED
+              </td>
+            </tr-->
+            <tr>
+              <td width="48%" class="game_label total_meron">{{ meron_payout | number:2 }} </td>
+              <td width="4%"></td>
+              <td width="48%" class="game_label total_wala">{{ wala_payout | number:2 }} </td>
             </tr>
             <tr>
               <td colspan="3">
@@ -78,7 +101,7 @@
           <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
         </div>
         <div class="form-footer" align="center">
-          <span class="footer_text">BEA-KILO-ROMEO TECHNOLOGIES. ALL RIGHTS RESERVER&trade; 2022</span>
+          <span class="footer_text">{{ company |uppercase }} | ALL RIGHTS RESERVE&trade; 2022</span>
         </div>
         </form>
       </section>

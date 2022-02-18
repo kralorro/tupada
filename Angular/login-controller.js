@@ -1,5 +1,7 @@
 var login_app = angular.module("login-app", ["myapp.config"]);
-login_app.controller("login-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
+login_app.controller("login-controller", ['$scope', '$http', '$interval', 'API_URL', 'COMPANY', function($scope, $http, $interval, API_URL, COMPANY) {
+
+    $scope.company = COMPANY;
 
     $scope.do_login = function(){
         console.log($scope.uname)
@@ -33,3 +35,5 @@ login_app.controller("login-controller", ['$scope', '$http', '$interval', 'API_U
     };
 
 }]);
+// add when going live
+document.addEventListener('contextmenu', event => event.preventDefault());

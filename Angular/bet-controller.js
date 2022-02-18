@@ -1,42 +1,44 @@
 var bet_app = angular.module("bet-app", ["myapp.config"]);
-bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
+bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL', 'COMPANY', function($scope, $http, $interval, API_URL, COMPANY) {
 
     $scope.username = sessionStorage.getItem("username");
+    $scope.company = COMPANY;
 
     $scope.get_current_game = function(){
+        var url = API_URL + "/getactivegame";
+        var data = {id: 1}
+        var header = {"Content-Type": "application/json"};
 
         if (sessionStorage.getItem("username") == null){
             window.location.replace("/index.html");
         }
-
         $scope.username = sessionStorage.getItem("username");
-        /*
-        $scope.meron_total_bets = 423100;
-        $scope.wala_total_bets = 510900;
-        */
-        $scope.game_id = 1001;
-        /*
-        $scope.teller_running_total_bets = 55120;
-        $scope.teller_running_total_withdraw = 25000
-        */
-        var meron = "Kim Wong/Dagul XXL 100 Super Stag";
-        var wala  = "Bam Serrano Palo-Alto Stag Farm";
 
-        if (meron.length > 15){
-            $scope.meron_entry = meron.substring(0, 12) + "...";
-        }
-        else{
-            $scope.meron_entry = meron;
-        }
+        // game data
+        $http.post(url, data, header).then(function (response) {
+            console.log(response.data)
 
-        if (wala.length > 15){
-            $scope.wala_entry = wala.substring(0, 12) + "...";
-        }
-        else{
-            $scope.wala_entry = wala;
-        }
+            if (response.data == "Error"){
+                $scope.page_message = "error encountered. contact application administrator.";
+            }
+            else if(response.data == "No Active"){
+                $scope.has_active = false;
+                $scope.game_id = "NO ACTIVE GAME";
+                // get aggregates should run in sync with get_current_game so game_id will have a value
+                $scope.get_aggregates();
+            }
+            else{
+                $scope.has_active = true;
+                $scope.game_id = response.data[0];
+                $scope.meron_entry = trim(response.data[1], 15);
+                $scope.wala_entry = trim(response.data[2], 15);
+                // get aggregates should run in sync with get_current_game so game_id will have a value
+                $scope.get_aggregates();
+            }
+        });
     }
     $scope.get_current_game()
+    $interval($scope.get_current_game, 30000);
 
 
     $scope.do_bet_meron = function(){
@@ -59,7 +61,6 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
                     window.location.replace("/qrcode.html?id=" + response.data);
                 }
              });
-            //var random_id = "20220216211523MASDGWTSGTGF";
 
         }
         else{
@@ -68,6 +69,7 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
         }
 
     }
+
 
     $scope.do_bet_wala = function(){
 
@@ -104,7 +106,7 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
         var data = { username: $scope.username, game_id: $scope.game_id };
         var header = {"Content-Type": "application/json"};
 
-        console.log(data)
+        //console.log(data)
         $http.post(url, data, header).then(function (response) {
             console.log(response.data)
             if (response.data == "Error"){
@@ -117,10 +119,13 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
                 console.log(response.data[2][0][1])
                 $scope.meron_total_bets = response.data[2][0][1];
                 $scope.wala_total_bets = response.data[2][1][1];
+                $scope.meron_payout = response.data[3]
+                $scope.wala_payout = response.data[4]
+
             }
         });
     }
-    $scope.get_aggregates();
+    $interval($scope.get_aggregates, 20000);
 
 
     $scope.do_logout = function(){
@@ -140,3 +145,15 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
     };
 
 }]);
+
+function trim(target, size){
+    if (target.length > 15) {
+        return target.substring(0, size-3) + "...";
+    }
+    else{
+        return target;
+    }
+}
+// add when going live
+//document.addEventListener('contextmenu', event => event.preventDefault());
+

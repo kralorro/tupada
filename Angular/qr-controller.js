@@ -1,7 +1,7 @@
 var qr_app = angular.module("qr-app", ["myapp.config"]);
-qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', 'BASE_URL', function($scope, $http, $interval, API_URL, BASE_URL) {
+qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', 'BASE_URL', 'COMPANY', function($scope, $http, $interval, API_URL, BASE_URL, COMPANY) {
 
-
+    $scope.company = COMPANY;
     $scope.generate_qrcode = function(){
 
         if (sessionStorage.getItem("username") == null){
@@ -28,6 +28,6 @@ qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', '
 
         window.location.replace("/bet.html");
     };
-
-
 }]);
+// add when going live
+//document.addEventListener('contextmenu', event => event.preventDefault());

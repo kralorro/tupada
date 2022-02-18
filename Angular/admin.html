@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <form method="post" ng-app="admin-app" ng-controller="admin-controller" >
+  <form method="post" ng-app="admin-app" ng-controller="admin-controller" ng-init="get_gamnes()">
     <div class="container" style="background-color:#f1f1f1">
       <p>
         Tupada Offline 1.0 | Game Administration
@@ -19,7 +19,32 @@
         <a href="">New Game</a> | <a href="">Reports</a> | <a href="">Archive Games</a>  | <a href="">Logout</a>
       </span>
     </div>
+      <table border="0" cellpadding=1 width=100%>
+                <tr align="center">
+                    <td align="center">
+                        <table class="table table-striped" style="background-color: #ececec;">
+                            <thead>
+                                <tr style="background-color: gray; font-weight:bold; color:white">
+                                    <td>Game #</td>
+                                    <td>Meron</td>
+                                    <td>Wala</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                                <tr ng-repeat="x in all_games" ng-style="">
+                                    <td>{{ x[0] }}</td>
+                                    <td>{{ x[1] }}</td>
+                                    <td>{{ x[4] }}</td>
+                                    <td>{{ x[8] }}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
     <div class="container" >
 
     </div>

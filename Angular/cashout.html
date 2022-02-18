@@ -45,50 +45,55 @@
             <tr>
               <td class="cashout_label">GAME ID</td>
               <td>&nbsp;</td>
-              <td align="left"> {{ game_code }}</td>
+              <td class="cvalue_label"> {{ game_code }}</td>
             </tr>
             <tr>
               <td class="cashout_label">WAGER</td>
               <td>&nbsp;</td>
-              <td align="left">{{ wager_on }}</td>
+              <td class="cvalue_label">{{ wager_on }}</td>
             </tr>
             <tr>
               <td class="cashout_label">AMOUNT</td>
               <td>&nbsp;</td>
-              <td align="left">PHP {{ bet_amount |number }}</td>
+              <td class="cvalue_label">PHP {{ bet_amount |number:2 }}</td>
             </tr>
              <tr>
               <td class="cashout_label">STATUS</td>
               <td>&nbsp;</td>
-              <td align="left">{{ status }}</td>
+              <td class="cvalue_label">{{ status }}</td>
             </tr>
              <tr>
               <td class="cashout_label">PAYOUT</td>
               <td>&nbsp;</td>
-              <td align="left">PHP {{ payout_amount |number }}</td>
+              <td class="cvalue_label">PHP {{ payout_amount |number:2 }}</td>
             </tr>
             </tr>
              <tr>
               <td class="cashout_label">CASHOUT STATUS</td>
               <td>&nbsp;</td>
-              <td align="left">{{ pay_status }}</td>
+              <td class="cvalue_label">{{ pay_status }}</td>
             </tr>
             <tr>
               <td lign="right" colspan="3"><br></td>
             </tr>
-            <tr>
+            <tr ng-show="is_cashout_allowed == true">
               <td colspan="3">
                 <button type="button" class="btn btn-primary btn-block" ng-click="do_cashout()">Cashout</button>
+              </td>
+            </tr>
+            <tr ng-show="is_cashout_allowed == false">
+              <td colspan="3">
+                <button type="button" class="btn btn-primary btn-block" disabled>Cashout Not Allowed</button>
               </td>
             </tr>
           </table>
 
         </div>
         <div class="form-footer">
-          <span ng-model="page_message" class="page_message">{{ page_message }}</span>
+          <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
         </div>
         <div class="form-footer" align="center">
-          <span class="footer_text">BEA-KILO-ROMEO TECHNOLOGIES. ALL RIGHTS RESERVER&trade; 2022</span>
+          <span class="footer_text">{{ company |uppercase }} | ALL RIGHTS RESERVE&trade; 2022</span>
         </div>
         </form>
       </section>

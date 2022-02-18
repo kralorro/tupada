@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+from waitress import serve
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_restful import Api
@@ -7,7 +7,7 @@ from flask_cors import CORS
 import string
 import random
 
-from database  import *
+from database import *
 from constants import *
 
 app = Flask(__name__)
@@ -46,7 +46,6 @@ def insert_bet(game_id, player_code, wager_amount, teller_wager):
 
 		# game_id, player_code, wager_date,wager_amount, wager_status, teller_wager, qrcode_id
 		sql = PLACE_BET.format(game_id, player_code, wager_date, wager_amount, wager_status, teller_wager, qrcode_id)
-		print(sql)
 
 		db = SQLite(MAIN_DB)
 		db.execute_DML(sql)
@@ -90,9 +89,8 @@ def place_bet():
 # web service to get aggregated data
 @app.route('/getaggregates', methods=['POST'])
 def get_aggregates():
-	#try:
+	try:
 		try:
-
 			# API call using postman
 			username = request.form['username']
 			game_id = request.form['game_id']
@@ -106,12 +104,19 @@ def get_aggregates():
 		tot_b = db.execute_query(TOT_BETS.format(username), return_one = True)
 		tot_c = db.execute_query(TOT_CASHOUT.format(username), return_one = True)
 
-		tot_games = db.execute_query(GET_GAME_TOTALS.format(game_id))
+		try:
+			tot_games = db.execute_query(GET_GAME_TOTALS.format(game_id))
+			m_pay, w_pay = compute_payout(tot_games[0][1], tot_games[1][1])
+		except:
+			tot_games = [['M',0], ['W',0]]
+			m_pay = 0
+			w_pay = 0
 
-		return jsonify([tot_b, tot_c, tot_games])
+		return jsonify([tot_b, tot_c, tot_games, m_pay, w_pay])
 
-	#except Exception as e:
-	#	return jsonify(str(e))
+	except Exception as e:
+		logger(str(e))
+		return jsonify("Error")
 
 
 
@@ -140,7 +145,7 @@ def validate_login():
 
 
 
-# web service for logour
+# web service for logout
 @app.route('/terminate', methods=['POST'])
 def terminate_login():
 	try:
@@ -159,15 +164,55 @@ def terminate_login():
 
 	except Exception as e:
 		logger (str(e))
-		return 0
+		return jsonify("Error")
 
 
-@app.route('/getgames', methods=['POST'])
-def get_games():
-	db = SQLite(MAIN_DB)
-	return jsonify(db.get_table_data("games"))
+
+# web service to get the active game
+@app.route('/getactivegame', methods=["POST"])
+def get_active_game():
+	try:
+		db =SQLite(MAIN_DB)
+
+		has_active = db.execute_query(COUNT_ACTIVE, return_one=True)
+		if has_active[0] == 0:
+			return jsonify("No Active")
+
+		else:
+			res = db.execute_query(GET_ACTIVE, return_one=True)
+			return jsonify(res)
+
+	except Exception as e:
+		logger(str(e))
+		return jsonify("Error")
+
+
+# web service for getting betting results
+@app.route('/getbetresults', methods=["POST"])
+def get_bet_results():
+	try:
+		try:
+			# API call using PostMan
+			id = request.form['id']
+
+		except:
+			# API call via AngularJS
+			id = request.json['id']
+
+		db =SQLite(MAIN_DB)
+		url = BET_DETAILS.format(id)
+
+		res = db.execute_query(url, return_one=True)
+
+		return jsonify(res)
+
+	except Exception as e:
+		logger(str(e))
+		return jsonify("Error")
 
 
 
 if __name__ == '__main__':
-	app.run(host="0.0.0.0")
+	# running in waitress WSGI
+	serve(app, host=HOST, port=PORT, threads=THREADS)
+

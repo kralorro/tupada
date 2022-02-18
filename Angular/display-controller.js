@@ -5,3 +5,5 @@ display_app.controller("display-controller", ['$scope', '$http', '$interval', 'A
     var PORT = 5000;
     var API = URL + ':' + PORT;
 }]);
+// add when going live
+//document.addEventListener('contextmenu', event => event.preventDefault());

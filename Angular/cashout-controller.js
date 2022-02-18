@@ -1,6 +1,7 @@
 var cashout_app = angular.module("cashout-app", ["myapp.config"]);
-cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'API_URL', function($scope, $http, $interval, API_URL) {
+cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'API_URL', 'COMPANY', function($scope, $http, $interval, API_URL, COMPANY) {
 
+    $scope.company = COMPANY;
 
     $scope.get_wager_data = function(){
         const queryString = window.location.search;
@@ -12,14 +13,45 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
         $scope.bet_id = id;
         $scope.username = sessionStorage.getItem("username");
 
-        $scope.game_code = "G1001";
-        $scope.wager_on = "MERON";
-        $scope.bet_amount = 2000;
-        $scope.status = 'WIN';
-        $scope.payout_amount = 3085;
-        $scope.pay_status = 'CASHOUT PENDING';
+        var url = API_URL + "/getbetresults";
+        var data = {id: id}
+        var header = {"Content-Type": "application/json"};
 
+        $scope.can_cashout = false;
+        $http.post(url, data, header).then(function (response) {
+            console.log(response.data)
+            if (response.data){
+                $scope.game_code = response.data[0];
+                if (response.data[1] == "M"){
+                    $scope.wager_on = "MERON";
+                }
+                else{
+                    $scope.wager_on = "WALA";
+                }
+
+                $scope.bet_amount = response.data[2];
+                $scope.payout_amount = response.data[3];
+
+                if (response.data[4] == response.data[1]){
+                    $scope.status = "WINNER";
+                }
+                else{
+                    $scope.status = "LOSER";
+                }
+
+                if (response.data[5] == "C"){
+                    $scope.pay_status = "CASHED OUT"
+                }
+                else{
+                    $scope.pay_status = "OPEN/UNCLAIMED"
+                }
+
+                $scope.is_cashout_allowed = is_cashout_allowed($scope.status, response.data[5])
+            }
+        });
     };
+
+
 
     $scope.close_cashout = function(){
         var data = { user_name:  sessionStorage.getItem("username")};
@@ -29,3 +61,15 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
     };
 
 }]);
+
+function is_cashout_allowed(bet_status, pay_status){
+
+        if(bet_status == "WINNER" && pay_status == "O"){
+            return true;
+        }
+        else{
+            return false;
+        }
+}
+// add when going live
+//document.addEventListener('contextmenu', event => event.preventDefault());
