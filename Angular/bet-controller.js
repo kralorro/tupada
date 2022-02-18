@@ -42,7 +42,6 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
 
 
     $scope.do_bet_meron = function(){
-
         var url = API_URL + "/placebet";
 
         var data = { username: $scope.username, bet_amount: $scope.bet_amount, game_id: $scope.game_id, player_code: "M" };
@@ -72,7 +71,6 @@ bet_app.controller("bet-controller", ['$scope', '$http', '$interval', 'API_URL',
 
 
     $scope.do_bet_wala = function(){
-
         var url = API_URL + "/placebet";
 
         var data = { username: $scope.username, bet_amount: $scope.bet_amount, game_id: $scope.game_id, player_code: "W" };
