@@ -6,6 +6,7 @@ from flask_restful import Api
 from flask_cors import CORS
 import string
 import random
+import time
 
 from database import *
 from constants import *
@@ -214,5 +215,8 @@ def get_bet_results():
 
 if __name__ == '__main__':
 	# running in waitress WSGI
+	print("running web service interface on WSGI...")
+	time.sleep(2)
+	print("service listening at http://{}:{}".format(HOST, PORT))
 	serve(app, host=HOST, port=PORT, threads=THREADS)
 
