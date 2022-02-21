@@ -11,7 +11,7 @@ login_app.controller("login-controller", ['$scope', '$http', '$interval', 'API_U
         var data = { user_name: $scope.uname, password: $scope.pword };
         var header = {"Content-Type": "application/json"};
         $http.post(url, data, header).then(function (response) {
-            if (response.data){
+            if (response.data != "Error"){
                 console.log(response.data)
                 if (response.data[1] == 1){
                     $scope.page_message = "You are currently logged in on another device."

@@ -16,7 +16,8 @@ PLASADA = .05
 
 # [database queries]
 # users SQL
-GET_USER    = "SELECT user_name, login_status, user_type FROM users WHERE user_name = '{}' AND password = '{}'"
+#GET_USER    = "SELECT user_name, login_status, user_type FROM users WHERE user_name = '{}' AND password = '{}'"
+GET_USER    = "SELECT user_name, login_status, user_type, password FROM users WHERE user_name = '{}'"
 LOCK_USER   = "UPDATE users SET login_status = 1 WHERE user_name = '{}'"
 UNLOCK_USER = "UPDATE users SET login_status = 0 WHERE user_name = '{}'"
 TOT_BETS    = "SELECT sum(wager_amount) FROM wagers WHERE teller_wager = '{}'"

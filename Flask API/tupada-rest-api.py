@@ -1,5 +1,8 @@
 #!/usr/bin/python
+# WSGI server definition
+# from cheroot import wsgi
 from waitress import serve
+
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_restful import Api
@@ -12,8 +15,10 @@ import sys
 import logging
 import logging.handlers
 
+# customer libraries
 from database import *
 from constants import *
+from security import Crypto
 
 app = Flask(__name__)
 CORS(app)
@@ -156,16 +161,25 @@ def validate_login():
 			uname = request.json['user_name']
 			pword = request.json['password']
 
+		cypher = Crypto(key='LrnoyToZH0acDaEnMgIeFPBLRABIMmE0FJboMOGEjrY=')
 
 		db = SQLite(MAIN_DB)
-		res = db.execute_query(GET_USER.format(uname, pword), return_one = True)
+		res = db.execute_query(GET_USER.format(uname), return_one = True)
 
 		if res is None:
-			logger.info("Login authentication failed for {}.".format(uname.upper()))
-		else:
-			logger.info("Login authentication successful for {}.".format(uname.upper()))
+			logger.info("User {} is not defined.".format(uname.upper()))
+			return jsonify("Error")
 
-		return jsonify(res)
+		else:
+			if pword == cypher.decrypt(res[3]):
+				logger.info("Login authentication successful for {}.".format(uname.upper()))
+				return jsonify(res)
+
+			else:
+				logger.info("Incorrect password for {}.".format(uname.upper()))
+				return jsonify("Error")
+
+
 
 	except Exception as e:
 		logger.error(str(e))
@@ -215,6 +229,7 @@ def get_active_game():
 		return jsonify("Error")
 
 
+
 # web service for getting betting results
 @app.route('/getbetresults', methods=["POST"])
 def get_bet_results():
@@ -240,6 +255,7 @@ def get_bet_results():
 
 
 
+# api for performing cashout
 @app.route('/cashout', methods=["POST"])
 def update_cashout_status():
 	try:
@@ -259,7 +275,7 @@ def update_cashout_status():
 		db.execute_DML(url)
 		logger.info("A cashout was placed. Agent:{}, RRN:{}"
 					.format(teller.upper(), id))
-		
+
 		return jsonify("Success")
 
 	except Exception as e:
@@ -268,6 +284,7 @@ def update_cashout_status():
 
 
 
+# main subroutine
 if __name__ == '__main__':
 	# running in waitress WSGI
 	msg = "running web service interface on WSGI..."
@@ -276,8 +293,14 @@ if __name__ == '__main__':
 
 	time.sleep(2)
 
-	msg = "service listening at http://{}:{}".format(HOST, PORT)
+	msg = "service listening at PORT {}".format(PORT)
 	logger.info(msg)
 	print('INFO:' + msg)
 
+	# using waitress WSGI
 	serve(app, host=HOST, port=PORT, threads=THREADS)
+
+	# using Cheroot WSGI
+	# disppatcher = wsgi.PathInfoDispatcher({'/': app})
+	# server = wsgi.Server((HOST, PORT), DISPATCHER)
+	# server.start()
