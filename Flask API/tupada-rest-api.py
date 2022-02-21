@@ -16,8 +16,8 @@ import logging
 import logging.handlers
 
 # customer libraries
-from database import *
 from constants import *
+from database import SQLite
 from security import Crypto
 
 app = Flask(__name__)
