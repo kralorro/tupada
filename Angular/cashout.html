@@ -78,7 +78,7 @@
             </tr>
             <tr ng-show="is_cashout_allowed == true">
               <td colspan="3">
-                <button type="button" class="btn btn-primary btn-block" ng-click="do_cashout()">Cashout</button>
+                <button type="button" class="btn btn-primary btn-block" ng-click="do_cashout(bet_id)">Cashout</button>
               </td>
             </tr>
             <tr ng-show="is_cashout_allowed == false">
@@ -89,7 +89,7 @@
           </table>
 
         </div>
-        <div class="form-footer">
+        <div class="form-footer" align="center">
           <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
         </div>
         <div class="form-footer" align="center">

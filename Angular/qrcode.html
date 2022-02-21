@@ -23,28 +23,33 @@
   <section class="container-fluid">
     <!-- row and justify-content-center class is used to place the form in center -->
     <section class="row justify-content-center">
-      <section class="col-12 col-sm-6 col-md-4">
+      <section class="col-12 col-sm-6 col-md-4" >
         <form class="form-container"  ng-app="qr-app" ng-controller="qr-controller" ng-init="generate_qrcode()()">
-        <div class="form-group">
-          <h4 class="text-center font-weight-bold"> Tupada | QR Code </h4>
+          <div  id="printable">
+            <div class="form-group">
+              <h4 class="text-center font-weight-bold"> Tupada | QR Code </h4>
 
-          <div class="form-footer text-center entry_label">
-            <a href="" ng-click="close_qrcode()">CLOSE</a>
+              <div class="form-footer text-center entry_label">
+                <a href="" ng-click="close_qrcode()">CLOSE</a>
+              </div>
+            </div>
+            <div class="form-footer text-center entry_label">
+                {{ bet_id }}
+            </div>
+
+            <div class="form-group" align="center"  >
+                <img ng-src="{{qrCode}}"  alt='QR code'>
+            </div>
           </div>
-        </div>
-        <div class="form-footer text-center entry_label">
-            {{ bet_id }}
-        </div>
-
-        <div class="form-group" align="center">
-            <img ng-src="{{qrCode}}"  alt='QR code'>
-        </div>
-        <div class="form-footer">
-          <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
-        </div>
-        <div class="form-footer" align="center">
-          <span class="footer_text">{{ company |uppercase }} | ALL RIGHTS RESERVE&trade; 2022</span>
-        </div>
+          <div class="form-group" align="center">
+              <button ng-click="print_qr('printable')" class="btn btn-primary btn-block">PRINT</button>
+          </div>
+          <div class="form-footer">
+            <span ng-model="page_message" class="page_message">{{ page_message |uppercase }}</span>
+          </div>
+          <div class="form-footer" align="center">
+            <span class="footer_text">{{ company |uppercase }} | ALL RIGHTS RESERVE&trade; 2022</span>
+          </div>
         </form>
       </section>
     </section>

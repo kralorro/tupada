@@ -4,6 +4,9 @@
 HOST    = "0.0.0.0"
 PORT    = 5000
 THREADS = 10
+DISPLAY_PORT = 5100
+
+LOG_FILE = "D:\\Tupada Logs\\Tupada.log"
 
 # [database constants]
 MAIN_DB = "D:\\Tupada Database\\Tupada.db"
@@ -25,6 +28,10 @@ BET_DETAILS = "SELECT a.game_id, a.player_code, a.wager_amount, a.win_amount, b.
               "FROM wagers a, games b " \
               "WHERE a.game_id = b.game_id " \
               "AND qrcode_id = '{}'"
+UPDATE_CASHOUT_STATUS = "UPDATE wagers " \
+                        "SET wager_status = 'C', date_last_updated = DATETIME('now'), teller_cashout = '{}' " \
+                        "WHERE qrcode_id = '{}'"
+
 # games SQL
 GET_GAME_TOTALS = "SELECT player_code, sum(wager_amount) FROM wagers WHERE game_id = {} GROUP by player_code ORDER BY player_code"
 GET_ACTIVE = "SELECT game_id, player_meron, player_wala FROM games WHERE game_status = 'A'"

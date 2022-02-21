@@ -28,6 +28,14 @@ qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', '
 
         window.location.replace("/bet.html");
     };
+
+    $scope.print_qr = function(area){
+        var print_contents = document.getElementById(area).innerHTML;
+        var original_content = document.body.innerHTML;
+        document.body.innerHTML = print_contents;
+        window.print();
+    };
+
 }]);
 // add when going live
 //document.addEventListener('contextmenu', event => event.preventDefault());

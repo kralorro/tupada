@@ -52,6 +52,24 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
     };
 
 
+    $scope.do_cashout = function(value){
+        $scope.username = sessionStorage.getItem("username");
+        var url = API_URL + "/cashout";
+        var data = {id: value, teller: $scope.username}
+        var header = {"Content-Type": "application/json"};
+
+        $http.post(url, data, header).then(function (response) {
+            console.log(response.data)
+            if (response.data == "Error"){
+                $scope.page_message = "error encountered. contact application administrator.";
+            }
+            else{
+                console.log(response.data)
+                window.location.replace("/bet.html");
+            }
+        });
+    };
+
 
     $scope.close_cashout = function(){
         var data = { user_name:  sessionStorage.getItem("username")};
