@@ -72,11 +72,11 @@ def insert_bet(game_id, player_code, wager_amount, teller_wager):
 
 		sql = PLACE_BET.format(game_id, player_code, wager_date, wager_amount, wager_status, teller_wager, qrcode_id)
 
-		logger.info("A bet was placed. Agent:{}, Game ID:{}, Player Code:{}, Amount:{}, RRN:{}"
-					.format(teller_wager.upper(), game_id, player_code, wager_amount, qrcode_id))
-
 		db = SQLite(MAIN_DB)
 		db.execute_DML(sql)
+
+		logger.info("A bet was placed. Agent:{}, Game ID:{}, Player Code:{}, Amount:{}, RRN:{}"
+					.format(teller_wager.upper(), game_id, player_code, wager_amount, qrcode_id))
 
 		return qrcode_id
 
