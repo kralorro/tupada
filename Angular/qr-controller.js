@@ -30,10 +30,17 @@ qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', '
     };
 
     $scope.print_qr = function(area){
+        /*
         var print_contents = document.getElementById(area).innerHTML;
         var original_content = document.body.innerHTML;
         document.body.innerHTML = print_contents;
         window.print();
+        */
+        var innerContents = document.getElementById(area).innerHTML;
+        var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+        popupWinindow.document.open();
+        popupWinindow.document.write('<html align="center"><head><link rel="stylesheet" type="text/css" href="bets.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+        popupWinindow.document.close();
     };
 
 }]);

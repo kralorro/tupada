@@ -161,7 +161,7 @@ def validate_login():
 			uname = request.json['user_name']
 			pword = request.json['password']
 
-		cypher = Crypto(key='LrnoyToZH0acDaEnMgIeFPBLRABIMmE0FJboMOGEjrY=')
+		cypher = Crypto(key=CYPHER_KEY)
 
 		db = SQLite(MAIN_DB)
 		res = db.execute_query(GET_USER.format(uname), return_one = True)
@@ -214,7 +214,7 @@ def terminate_login():
 @app.route('/getactivegame', methods=["POST"])
 def get_active_game():
 	try:
-		db =SQLite(MAIN_DB)
+		db = SQLite(MAIN_DB)
 
 		has_active = db.execute_query(COUNT_ACTIVE, return_one=True)
 		if has_active[0] == 0:
@@ -242,7 +242,7 @@ def get_bet_results():
 			# API call via AngularJS
 			id = request.json['id']
 
-		db =SQLite(MAIN_DB)
+		db = SQLite(MAIN_DB)
 		url = BET_DETAILS.format(id)
 
 		res = db.execute_query(url, return_one=True)
@@ -269,7 +269,7 @@ def update_cashout_status():
 			id = request.json['id']
 			teller = request.json['teller']
 
-		db =SQLite(MAIN_DB)
+		db = SQLite(MAIN_DB)
 		url = UPDATE_CASHOUT_STATUS.format(teller, id)
 
 		db.execute_DML(url)
@@ -302,5 +302,5 @@ if __name__ == '__main__':
 
 	# using Cheroot WSGI
 	# disppatcher = wsgi.PathInfoDispatcher({'/': app})
-	# server = wsgi.Server((HOST, PORT), DISPATCHER)
+	# server = wsgi.Server((HOST, PORT), dispatcher)
 	# server.start()

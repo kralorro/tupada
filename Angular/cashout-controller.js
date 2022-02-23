@@ -4,6 +4,12 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
     $scope.company = COMPANY;
 
     $scope.get_wager_data = function(){
+
+        if (sessionStorage.getItem("username") == null){
+            window.location.replace("/index.html");
+        }
+        $scope.username = sessionStorage.getItem("username");
+
         const queryString = window.location.search;
         console.log(queryString);
 
@@ -11,7 +17,6 @@ cashout_app.controller("cashout-controller", ['$scope', '$http', '$interval', 'A
         const id = urlParams.get('id');
 
         $scope.bet_id = id;
-        $scope.username = sessionStorage.getItem("username");
 
         var url = API_URL + "/getbetresults";
         var data = {id: id}

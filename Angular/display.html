@@ -1,0 +1,86 @@
+<html>
+<head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="display.css">
+</head>
+
+<body>
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="display-controller.js"></script>
+<script src="app.config.js"></script>
+  <!-- Login form creation starts-->
+  <section class="container-fluid">
+    <!-- row and justify-content-center class is used to place the form in center -->
+    <section class="row justify-content-center">
+      <section class="col-12">
+        <form class="form-container" ng-app="display-app" ng-controller="display-controller" >
+
+        <div class="form-group">
+          <table width="100%" style="border-radius: 10px;" cellpadding="10" class="table table-hover">
+            <thead align="center" class="body_text">
+              <td>GAME ID</td>
+              <td>MERON ENTRY</td>
+              <td>TOTAL BETS</td>
+              <td>PAYOUT</td>
+              <td>VS</td>
+              <td>WALA ENTRY</td>
+              <td>TOTAL BETS</td>
+              <td>PAYOUT</td>
+            </thead>
+            <tbody>
+              <tr class="row_text" ng-repeat="x in last_10_games">
+                <td>{{ x[0] }}</td>
+                <td ng-style="winner_style('M', x[7])">{{ x[1] }}</td>
+                <td>{{ x[3] | number:2 }}</td>
+                <td>{{ x[2] | number:2 }}</td>
+                <td class="body_text" align="center"></td>
+                <td ng-style="winner_style('W', x[7])">{{ x[4] }}</td>
+                <td>{{ x[6] |number:2 }}</td>
+                <td>{{ x[5] |number:2 }}</td>
+              </tr>
+
+              <tr class="current_game">
+                <td style="background-color: red">{{ game_id }}</td>
+                <td class="meron">{{ meron_entry }}</td>
+                <td class="meron">{{ meron_total_bets | number:2 }}</td>
+                <td class="meron">{{ meron_payout | number:2 }}</td>
+                <td class="body_text" align="center">VS</td>
+                <td class="wala">{{ wala_entry }}</td>
+                <td class="wala">{{ wala_total_bets |number:2 }}</td>
+                <td class="wala">{{ wala_payout |number:2 }}</td>
+              </tr>
+
+              <tr class="row_text" ng-repeat="x in next_10_games">
+                <td>{{ x[0] }}</td>
+                <td>{{ x[1] }}</td>
+                <td>{{ x[3] | number:2 }}</td>
+                <td>{{ x[2] | number:2 }}</td>
+                <td class="body_text" align="center"></td>
+                <td>{{ x[4] }}</td>
+                <td>{{ x[6] |number:2 }}</td>
+                <td>{{ x[5] |number:2 }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-footer" align="center">
+          <span class="footer_text">{{ company |uppercase }} | ALL RIGHTS RESERVE&trade; 2022</span>
+        </div>
+        </form>
+      </section>
+    </section>
+  </section>
+<!-- Login form creation ends -->
+</body>
+</html>

@@ -4,7 +4,7 @@ Below need to be installed using PIP
 API dependencies
 	- waitress (WSGI server)
 	- flask
-	- cryptography.fernet
+	- cryptography.fernet (encyption)
 
 Ensure to update app.config.js and constants.py
 	app.config.js

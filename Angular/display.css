@@ -2,7 +2,7 @@
 /* set entire body that is webpage */
 body{
     background: #383a3d;
-    padding-top: 15vh;
+    padding-top: 10vh;
     font-family: Arial, Helvetica, sans-serif;
     background-image: url("img/background.png");
     background-repeat: no-repeat, repeat;
@@ -24,8 +24,30 @@ form{
     font-size: 14px;
 }
 
+.body_text{
+    font-size: 12px;
+}
+
 .footer_text{
     font-size: 8px;
 }
 
+.current_game{
+    font-size: 25px;
+    border-bottom: 4px double red;
+    border: 4px solid red;
+}
 
+.meron{
+    background-color: #87E36D;
+    text-align: left;
+}
+
+.wala{
+    background-color: #F5967F;
+    text-align: left;
+}
+
+.row_text{
+    font-size: 14px;
+}

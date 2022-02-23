@@ -4,11 +4,15 @@ body{
     background: #383a3d;
     padding-top: 5vh;
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url("img/background.png");
+    background-repeat: no-repeat, repeat;
+    background-position: left; /* Center the image */
 }
 
 /* set form background colour*/
 form{
     background: #fff;
+    opacity: 0.95;
 }
 
 /* set padding and size of th form */
