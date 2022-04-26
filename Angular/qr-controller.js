@@ -1,7 +1,10 @@
 var qr_app = angular.module("qr-app", ["myapp.config"]);
-qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', 'BASE_URL', 'COMPANY', function($scope, $http, $interval, API_URL, BASE_URL, COMPANY) {
+qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', 'BASE_URL', 'COMPANY', 'CLIENT', function($scope, $http, $interval, API_URL, BASE_URL, COMPANY, CLIENT) {
 
     $scope.company = COMPANY;
+    $scope.client = CLIENT;
+    $scope.username = sessionStorage.getItem("username");
+
     $scope.generate_qrcode = function(){
 
         if (sessionStorage.getItem("username") == null){
@@ -15,6 +18,16 @@ qr_app.controller("qr-controller", ['$scope', '$http', '$interval', 'API_URL', '
         const id = urlParams.get('id');
 
         $scope.bet_id = id;
+        $scope.game_id = id.substring(19,23);
+        t_wager = id.substring(23,24);
+        if (t_wager == 'M'){
+            $scope.wager = 'MERON';
+        }
+        else{
+            $scope.wager = 'WALA';
+        }
+
+        $scope.amount = id.substring(24);
 
         var absUrl = BASE_URL + "/cashout.html?id=" + id;
         $scope.bet_url = absUrl;

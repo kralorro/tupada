@@ -21,7 +21,7 @@ api = Api(app)
 
 # initialize logger instance
 try:
-	log_file = LOG_FILE
+	log_file = LOG_FILE_DISPLAY
 
 	logger  = logging.getLogger('LOG')
 	logger.setLevel(logging.INFO)

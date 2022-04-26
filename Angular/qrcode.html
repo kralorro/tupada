@@ -34,13 +34,33 @@
               </div>
             </div>
             <div  id="printable">
+              <div class="form-footer text-center">
+                {{ client }}
+              </div>
               <div class="form-footer text-center entry_label">
+                Game ID: {{ game_id }}
+              </div>
+              <div class="form-footer text-center entry_label">
+                Side: {{ wager }}
+              </div>
+              <div class="form-footer text-center entry_label">
+                Amount: {{ amount }}
+              </div>
+              <div class="form-footer text-center entry_label">
+                Teller: {{ username }}
+              </div>
+              <br>
+              <div class="form-footer text-center qr_ref">
                   {{ bet_id }}
               </div>
 
               <div class="form-group" align="center">
-                  <img ng-src="{{qrCode}}"  alt='QR code'>
+                  <img ng-src="{{qrCode}}"  alt='QR code' width="150" height="150">
               </div>
+              <div class="form-footer text-center qr_ref">
+                  POWERED BY {{ company }}
+              </div>
+              <br>
             </div>
           </div>
           <div class="form-group" align="center">

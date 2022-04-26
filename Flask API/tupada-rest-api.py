@@ -57,7 +57,7 @@ def compute_payout(tot_amt_meron, tot_amt_wala):
 
 # generate random string
 def generate_token():
-	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
 
 
@@ -68,7 +68,7 @@ def insert_bet(game_id, player_code, wager_amount, teller_wager):
 		date_1 = today.strftime("%Y-%m-%d %H:%M:%S")
 		wager_date = date_1
 		wager_status = "O"
-		qrcode_id = today.strftime("%Y%m%d%H%M%S")+ player_code + generate_token()
+		qrcode_id = "{}{}{}{}{}".format(today.strftime("%Y%m%d%H%M%S"), generate_token(), game_id, player_code, wager_amount)
 
 		sql = PLACE_BET.format(game_id, player_code, wager_date, wager_amount, wager_status, teller_wager, qrcode_id)
 

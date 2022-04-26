@@ -101,3 +101,7 @@ a:hover{
 .code_label{
     font-size: 12px;
 }
+
+.qr_ref {
+    font-size: 8px;
+}

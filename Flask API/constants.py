@@ -2,11 +2,13 @@
 
 # application constants
 HOST    = "0.0.0.0"
-PORT    = 5000
+PORT    = 8000
 THREADS = 10
-DISPLAY_PORT = 5001
+DISPLAY_PORT = 8001
 CYPHER_KEY   = 'LrnoyToZH0acDaEnMgIeFPBLRABIMmE0FJboMOGEjrY='
-LOG_FILE = "D:\\Tupada Logs\\Tupada.log"
+
+LOG_FILE = "D:\\Tupada Logs\\tupada.log"
+LOG_FILE_DISPLAY = "D:\\Tupada Logs\\tupada-display.log"
 
 # [database constants]
 MAIN_DB = "D:\\Tupada Database\\Tupada.db"
