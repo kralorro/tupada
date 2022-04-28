@@ -40,3 +40,8 @@ GET_ACTIVE        = "SELECT game_id, player_meron, player_wala FROM games WHERE 
 COUNT_ACTIVE      = "SELECT count(1) FROM games WHERE game_status = 'A'"
 GET_LAST_10_GAMES = "SELECT * FROM games WHERE game_status = 'C' ORDER BY last_udpate LIMIT 10"
 GET_NEXT_10_GAMES = "SELECT * FROM games WHERE game_status = 'S' ORDER BY game_id LIMIT 10"
+ACTIVATE_GAME = "UPDATE games SET game_status = '{}', last_udpate = DATETIME('now') WHERE game_id = '{}'"
+DEACTIVATE_GAME_STATUS = "UPDATE games SET game_status = '{}', last_udpate = DATETIME('now') WHERE game_status = '{}'"
+UPDATE_GAME_STATUS = "UPDATE games SET game_status = '{}', last_udpate = DATETIME('now') WHERE game_id = '{}'"
+UPDATE_GAME = "UPDATE games SET player_meron = '{}', player_wala = '{}', fight_sequence = '{}', game_status = '{}', derbyIDFK = '{}', last_udpate = DATETIME('now') WHERE game_id = '{}'"
+INSERT_GAME = "INSERT INTO GAMES(player_meron, player_wala, fight_sequence, game_status, derbyIDFK, date_created) VALUES ('{}', '{}', '{}', '{}', {}, DATETIME('now'))"
