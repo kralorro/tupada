@@ -46,8 +46,7 @@ var app = angular.module("myModule", ["myapp.config"])
 				var data = { game_status: $scope.status, player_meron: $scope.meron, player_wala:$scope.wala, fight_sequence: $scope.fightNo, derbyID: "1"};
         		var header = {"Content-Type": "application/json"};
         		console.log(data)
-				alert($scope.status + " " + $scope.meron + " " + $scope.wala + " " + $scope.fightNo + " ");
-
+				
         		$http.post(url, data, header).then(function (response) {
 					console.log(response.data)
 					if (response.data == "Error"){
