@@ -282,6 +282,151 @@ def update_cashout_status():
 		logger.error(str(e))
 		return jsonify("Error")
 
+# api for getting games
+@app.route('/get_games', methods=['GET', 'POST'])
+def get_games():
+	try:
+		db = SQLite(MAIN_DB)
+		res = db.get_table_data("games")
+		logger.info("get_games API was executed")
+
+		return jsonify(res)
+
+	except Exception as e:
+		logger.error(str(e))
+		return jsonify("Error")
+
+
+# api for activating game
+@app.route('/activateGame', methods=["POST"])
+def activateGame():
+	try:
+		try:
+			# API call using PostMan
+			game_id = request.form['game_id']
+			game_status = request.form['game_status']
+		except:
+			# API call via AngularJS
+			game_status = request.json['game_status']
+			game_id = request.json['game_id']
+
+		db = SQLite(MAIN_DB)
+		#set current A status games to C
+		url = DEACTIVATE_GAME_STATUS.format('C','A')
+		print(url)
+		db.execute_DML(url)
+		#set status game to A as active
+		url = ACTIVATE_GAME.format(game_status, game_id)
+		print(url)
+		db.execute_DML(url)		
+
+		logger.info("A game was set to Active. GameID:{}"
+					.format(game_id))
+
+		return jsonify("Success")
+
+	except Exception as e:
+		logger.error(str(e))
+		return jsonify("Error")
+
+# api for updating game status
+@app.route('/updateGameStatus', methods=["POST"])
+def updateGameStatus():
+	try:
+		try:
+			# API call using PostMan
+			game_id = request.form['game_id']
+			game_status = request.form['game_status']
+		except:
+			# API call via AngularJS
+			game_status = request.json['game_status']
+			game_id = request.json['game_id']
+
+		db = SQLite(MAIN_DB)
+		#set current A status games to C
+		url = UPDATE_GAME_STATUS.format(game_status, game_id)
+		print(url)
+		db.execute_DML(url)
+
+		logger.info("A game status was changed. Status: {}, GameID:{}"
+					.format(game_status, game_id))
+
+		return jsonify("Success")
+
+	except Exception as e:
+		logger.error(str(e))
+		return jsonify("Error")
+
+# api for updating games
+@app.route('/updateGame', methods=["POST"])
+def updateGame():
+	try:
+		try:
+			# API call using PostMan
+			game_id = request.form['game_id']
+			game_status = request.form['game_status']
+			fight_sequence = request.form['fight_sequence']
+			player_meron = request.form['player_meron']
+			player_wala = request.form['player_wala']
+			derbyIDFK = request.form['derbyID']
+		except:
+			# API call via AngularJS
+			game_status = request.json['game_status']
+			game_id = request.json['game_id']
+			fight_sequence = request.json['fight_sequence']
+			player_meron = request.json['player_meron']
+			player_wala = request.json['player_wala']
+			derbyIDFK = request.json['derbyID']
+
+		db = SQLite(MAIN_DB)
+		#update game to new values for update function
+		url = UPDATE_GAME.format(player_meron, player_wala, fight_sequence, game_status, derbyIDFK, game_id)
+		print(url)
+		db.execute_DML(url)
+
+		logger.info("A game was updated. meron: {}, wala: {}, fight_sequence: {}, game_status: {}, derbyIDFK: {} "
+					.format(player_meron, player_wala, fight_sequence, game_status, derbyIDFK, game_id))
+
+		return jsonify("Success")
+
+	except Exception as e:
+		logger.error(str(e))
+		return jsonify("Error")
+
+# api for inserting games
+@app.route('/addGame', methods=["POST"])
+def addGame():
+	try:
+		try:
+			# API call using PostMan
+			game_status = request.form['game_status']
+			fight_sequence = request.form['fight_sequence']
+			player_meron = request.form['player_meron']
+			player_wala = request.form['player_wala']
+			derbyIDFK = request.form['derbyID']
+		except:
+			# API call via AngularJS
+			game_status = request.json['game_status']
+			fight_sequence = request.json['fight_sequence']
+			player_meron = request.json['player_meron']
+			player_wala = request.json['player_wala']
+			derbyIDFK = request.json['derbyID']
+
+		db = SQLite(MAIN_DB)
+		#update game to new values for update function
+		url = INSERT_GAME.format(player_meron, player_wala, fight_sequence, game_status, derbyIDFK)
+		print(url)
+		db.execute_DML(url)
+
+		logger.info("A game was inserted. meron: {}, wala: {}, fight_sequence: {}, game_status: {}, derbyIDFK: {} "
+					.format(player_meron, player_wala, fight_sequence, game_status, derbyIDFK))
+
+		return jsonify("Success")
+
+	except Exception as e:
+		logger.error(str(e))
+		return jsonify("Error")
+
 
 
 # main subroutine
